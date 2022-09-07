@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+  
+    <style>
+      body {margin: 0px; min-width: 100vw; min-height: 100vh;}
+
+      #loading {
+
+        z-index:10000;
+        position: fixed;
+         left:50%; 
+         top: 50%; transform: translateX(-50%) translateY(-50%);
+        background-color: white;
+        width: 300px;
+        height: 20px;
+        display: none;
+
+      }
+
+      #loadingbar{
+
+        width: 2%;
+        height: 100%;
+        background-color: black;
+      }
+
+    </style>
+  </head>
+
+  <body>
+
+
+
+
+ 
+    <img style="display: none" src="/img/liveevent.jpg"/>
+    <img style="display: none" src="/img/liveaudience.jpg"/>
+    <img style="display: none" src="/img/founders.jpg"/>
+    <img style="display: none" src="/img/audienceblue.jpg"/>
+    <img style="display: none" src="/img/abg3.jpg"/>
+    <img style="display: none" src="/img/abg.jpg"/>
+    <img style="display: none" src="/img/deserve-more-bg.jpg"/>
+    <img style="display: none" src="/img/jithinraj.jpeg"/>
+    <img style="display: none" src="/img/sajithamma.jpeg"/>
+    <img style="display: none" src="/img/movies.jpg"/>
+    <img style="display: none" src="/img/cinema.jpg"/>
+    <img style="display: none" src="/img/abg2.jpg"/>
+
+
+
+    <div id="loading" >
+
+      <div id="loadingbar"></div>
+  
+    </div>  
+
+ 
+    
+
+  </body>
+</html>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@master/build/three.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@master/examples/js/controls/OrbitControls.js"></script>
+<script src="https://unpkg.com/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+<script src="https://unpkg.com/tween.js@16.6.0/src/Tween.js"></script>
+<script src="/js/RGBELoader.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hls.js/8.0.0-beta.3/hls.min.js"></script>
+<script src="/js/multiverse.js"></script>
+
+<script>
+
+  /** To toggele video sound  */
+toggleMute6D = (videoID) => {
+
+let videoDom = document.getElementById(videoID);
+
+if (videoDom.muted == true) {
+    videoDom.muted = false;
+} else {
+    videoDom.muted = true;
+}
+};
+
+</script>
+
+<script>
+
+
+let multiverse = new Multiverse(document.body, false);
+multiverse.setupDefaultCamera({ position: { x: 1, y: 1, z: 1 } });
+multiverse.enableOrbitControl();
+multiverse.loadHDR('royal_esplanade_1k.hdr', '/assets/');
+multiverse.loadGltf('art.glb', '/assets/', { switchCamera: true }, ()=>{
+multiverse.retrieveScreenMeshs("Picture");
+mapAllImages(multiverse);
+  
+
+});
+
+
+
+function mapAllImages(multiverse){
+
+let images = document.getElementsByTagName('img');
+
+for(let i=0; i<  images.length; i++){
+
+  //console.log(multiverse.screens[i].name);
+
+  if(multiverse.screens[i])
+  {
+     multiverse.assignImageTexture(multiverse.screens[i], images[i].getAttribute('src'));
+  }
+  else{
+    break; 
+  }
+
+}
+
+}
+
+
+</script>
+
